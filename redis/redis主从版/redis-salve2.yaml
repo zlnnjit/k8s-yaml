@@ -1,38 +1,39 @@
+## redis salve2
 apiVersion: v1
 kind: Service
 metadata:
   namespace: zln
-  name: redis
+  name: redis-salve2
   labels:
-    app: redis
+    app: redis-salve2
 spec:
   ports:
     - port: 6379
-      nodePort: 32701
+      nodePort: 32704
       targetPort: 6379
   selector:
-    app: redis
+    app: redis-salve2
   type: NodePort
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: redis
+  name: redis-salve2
   namespace: zln
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: redis
+      app: redis-salve2
   template:
     metadata:
       labels:
-        app: redis
+        app: redis-salve2
     spec:
       nodeSelector:
         kubernetes.io/hostname: zz-node1
       containers:
-        - name: redis
+        - name: redis-salve2
           image: hub.pml.com/zln/redis:6.0.4
           ports:
             - containerPort: 6379
@@ -41,6 +42,8 @@ spec:
           args:
             - "/etc/redis/redis.conf"
             - "--requirepass 'admin'"
+            - "--slaveof redis-master 6379"
+            - "--masterauth admin"
           resources:
             limits:
               cpu: 1
@@ -61,9 +64,8 @@ spec:
             path: /etc/localtime
         - name: redis-data
           hostPath:
-            path: /zln/redis/data
+            path: /zln/redis-salve2/data
         - name: redis-conf
           hostPath:
-            path: /zln/redis/conf
-
+            path: /zln/redis-salve2/conf
 

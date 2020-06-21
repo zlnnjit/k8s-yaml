@@ -1,0 +1,22 @@
+前置条件:
+1.如果没有命名空间的话，请创建命名空间：kubectl create namespace zln
+2.需要本地harbor,否则拉取镜像失败
+3.部署的k8s的hostname为zz-node1,如果不，请修改yaml的nodeSelector
+
+操作：
+1.将redis.conf拷贝到/zln/redis-master/conf目录下
+2.将redis.conf拷贝到/zln/redis-salve1/conf目录下,并执行
+2.将redis.conf拷贝到/zln/redis-salve2/conf目录下,并执行
+2.将redis.conf拷贝到/zln/redis-salve3/conf目录下,并执行
+3.将redis-master.yaml、redis-salve1.yaml、redis-salve2.yaml、redis-salve3.yaml拷贝到/zln/yaml下
+4.资源生效：
+kubectl apply -f /zln/yaml/redis-master.yaml
+kubectl apply -f /zln/yaml/redis-salve1.yaml
+kubectl apply -f /zln/yaml/redis-salve2.yaml
+kubectl apply -f /zln/yaml/redis-salve3.yaml
+
+清理环境：
+kubectl delete -f /zln/yaml/redis-master.yaml
+kubectl delete -f /zln/yaml/redis-salve1.yaml
+kubectl delete -f /zln/yaml/redis-salve2.yaml
+kubectl delete -f /zln/yaml/redis-salve3.yaml
