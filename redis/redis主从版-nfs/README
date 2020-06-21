@@ -2,8 +2,7 @@
 前置条件:
 1.如果没有命名空间的话，请创建命名空间：kubectl create namespace zln
 2.需要本地harbor,否则拉取镜像失败
-3.部署的k8s的hostname为zz-node1,如果不，请修改yaml的nodeSelector
-4.nfs目录挂载到本地/nfs下
+3.nfs目录挂载到本地/nfs下
 
 操作：
 1.创建nfs目录：

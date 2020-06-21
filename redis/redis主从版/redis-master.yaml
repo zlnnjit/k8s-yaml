@@ -30,8 +30,6 @@ spec:
       labels:
         app: redis-master
     spec:
-      nodeSelector:
-        kubernetes.io/hostname: zz-node1
       containers:
         - name: redis-master
           image: hub.pml.com/zln/redis:6.0.4
