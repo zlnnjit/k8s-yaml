@@ -6,10 +6,11 @@
 4.nfs目录挂载到本地/nfs下
 
 操作：
-1.创建nfs目录：mkdir -p /nfs/redis-master-133/data
+1.创建nfs目录：mkdir -p /nfs/redis-single/data
 2.将redis.yaml拷贝到/zln/yaml下
 3.资源生效：kubectl apply -f /zln/yaml/redis.yaml
 
 清理环境：
 kubectl delete -f /zln/yaml/redis.yaml
-rm -rf /nfs/redis-master-133/
+rm -rf /nfs/redis-single/
+kubectl patch pv pv-redis-master -p '{"metadata":{"finalizers":null}}'
