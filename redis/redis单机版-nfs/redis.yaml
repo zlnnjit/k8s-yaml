@@ -65,7 +65,7 @@ spec:
         - name: redis-conf
           configMap:
             items:
-              - key: redis.conf
+              - key: redis-tmp.conf
                 path: redis.conf
             name: redis-configmap
 
@@ -88,7 +88,7 @@ metadata:
   labels:
     addonmanager.kubernetes.io/mode: Reconcile
 data:
-  redis.conf: |
+  redis-tmp.conf: |
     # 根据需求去修改端口
     port 6379
     # 日志文件
