@@ -63,14 +63,12 @@ spec:
           hostPath:
             path: /etc/localtime
         - name: redis-conf
-          hostPath:
-            path: /zln/redis/conf
-        - configMap:
+          configMap:
             items:
               - key: redis.conf
                 path: redis.conf
-            name: redis-conf
-          name: config-volume
+            name: redis-configmap
+
   volumeClaimTemplates:
     - metadata:
         name: redis-data
@@ -85,7 +83,7 @@ spec:
 kind: ConfigMap
 apiVersion: v1
 metadata:
-  name: redis-conf
+  name: redis-configmap
   namespace: zln
   labels:
     addonmanager.kubernetes.io/mode: Reconcile
