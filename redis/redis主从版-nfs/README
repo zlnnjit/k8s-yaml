@@ -24,12 +24,12 @@ kubectl patch pv pv-redis-salve1 -p '{"metadata":{"finalizers":null}}'
 kubectl patch pv pv-redis-salve2 -p '{"metadata":{"finalizers":null}}'
 kubectl patch pv pv-redis-salve3 -p '{"metadata":{"finalizers":null}}'
 kubectl -n zln delete pvc redis-data-redis-master-0
+kubectl -n zln delete pvc redis-data-redis-salve-0
 kubectl -n zln delete pvc redis-data-redis-salve-1
 kubectl -n zln delete pvc redis-data-redis-salve-2
-kubectl -n zln delete pvc redis-data-redis-salve-3
 
 
-rm -rf /nfs/redis-master/data
-rm -rf /nfs/redis-salve-0/data
-rm -rf /nfs/redis-salve-1/data
-rm -rf /nfs/redis-salve-2/data
+rm -rf /nfs/redis-master/
+rm -rf /nfs/redis-salve-0/
+rm -rf /nfs/redis-salve-1/
+rm -rf /nfs/redis-salve-2/
