@@ -1,0 +1,38 @@
+参考：https://github.com/dotbalo/k8s
+前置条件:
+1.如果没有命名空间的话，请创建命名空间：kubectl create namespace zln
+2.需要本地harbor,否则拉取镜像失败
+3.nfs目录挂载到本地/nfs下
+
+操作：
+1.创建nfs目录：
+mkdir -p /nfs/redis-master/data
+mkdir -p /nfs/redis-salve-0/data
+mkdir -p /nfs/redis-salve-1/data
+mkdir -p /nfs/redis-salve-2/data
+
+2.将redis.yaml拷贝到/zln/yaml下
+3.资源生效：
+kubectl apply -f /zln/yaml/redis-master.yaml
+kubectl apply -f /zln/yaml/redis-salve.yaml
+kubectl apply -f /zln/yaml/redis-sentinel.yaml
+
+清理环境：
+kubectl delete -f /zln/yaml/redis-master.yaml
+kubectl delete -f /zln/yaml/redis-salve.yaml
+kubectl delete -f /zln/yaml/redis-sentinel.yaml
+
+kubectl patch pv pv-redis-master -p '{"metadata":{"finalizers":null}}'
+kubectl patch pv pv-redis-salve1 -p '{"metadata":{"finalizers":null}}'
+kubectl patch pv pv-redis-salve2 -p '{"metadata":{"finalizers":null}}'
+kubectl patch pv pv-redis-salve3 -p '{"metadata":{"finalizers":null}}'
+kubectl -n zln delete pvc redis-data-redis-master-0
+kubectl -n zln delete pvc redis-data-redis-salve-0
+kubectl -n zln delete pvc redis-data-redis-salve-1
+kubectl -n zln delete pvc redis-data-redis-salve-2
+
+
+rm -rf /nfs/redis-master/
+rm -rf /nfs/redis-salve-0/
+rm -rf /nfs/redis-salve-1/
+rm -rf /nfs/redis-salve-2/
