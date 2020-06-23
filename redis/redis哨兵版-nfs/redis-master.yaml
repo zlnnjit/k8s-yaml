@@ -8,7 +8,7 @@ metadata:
 spec:
   ports:
     - port: 6379
-      nodePort: 32703
+      nodePort: 32704
       targetPort: 6379
   selector:
     app: redis-master
@@ -39,7 +39,6 @@ spec:
             - "redis-server"
           args:
             - "/etc/redis/redis.conf"
-            - "--requirepass 'admin'"
           resources:
             limits:
               cpu: 1

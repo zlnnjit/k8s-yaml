@@ -8,7 +8,7 @@ metadata:
 spec:
   ports:
     - port: 6379
-      nodePort: 32704
+      nodePort: 32705
       targetPort: 6379
   selector:
     app: redis-salve
@@ -39,7 +39,6 @@ spec:
             - "redis-server"
           args:
             - "/etc/redis/redis.conf"
-            - "--requirepass 'admin'"
             - "--slaveof redis-master 6379"
           resources:
             limits:
@@ -96,8 +95,6 @@ data:
     appendonly yes
     # 数据保存目录
     dir /data
-    # 主节点认证
-    masterauth admin
 ---
 apiVersion: v1
 kind: PersistentVolume
